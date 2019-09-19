@@ -330,6 +330,7 @@ augroup CursorPosition
   au! CursorHold,CursorHoldI,CursorMoved,CursorMovedI * call UpdateCursorPosition()
 augroup END
 
+" status line
 let g:modeStr = "NORMAL"
 function WhatMode()
   return g:modeStr
@@ -338,6 +339,23 @@ augroup EventSetMode
   autocmd!
   autocmd InsertEnter * let g:modeStr = "INSERT"
   autocmd InsertLeave * let g:modeStr = "NORMAL"
+augroup END
+
+" git brach を取得
+let g:gitBranch = ""
+function GetGitBranch()
+  return g:gitBranch
+endfunction
+
+function SetGitBranch()
+  " ちなみに Կ も悪くない
+  let branch = trim(system("git status 2> /dev/null | awk -F\"'\" '{print $2}' | xargs echo"))
+  if len(branch) > 1
+    let g:gitBranch = ' Git վ(' . branch . ')'
+  endif
+endfunction
+augroup GitBranchGr
+  autocmd BufNewFile,BufRead * :call SetGitBranch()
 augroup END
 
 hi User1 ctermbg=NONE ctermfg=51
@@ -360,6 +378,8 @@ set statusline+=%m
 " これ以降は右寄せ表示
 set statusline+=%=
 set statusline+=\ %4*%{CursorPositionY()}%4*Ln,%4*%{CursorPositionX()}%4*Col
+" git branch
+set statusline+=%3*\%{GetGitBranch()}
 " ファイルの種類
 set statusline+=%3*\ [%{&filetype}]\ %4*\|
 " file encoding
