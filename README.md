@@ -8,7 +8,6 @@ $ git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 $ git clone [this repository]
 $ cd [this repository]
 $ cp vimrc /etc/vimrc
-$ cp -R bundle ~/.vim/
 $ cp -R coc ~/.config/
 ```
 
