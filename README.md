@@ -3,19 +3,18 @@ This is my vim settings
 
 Installation
 ```bash
+$ mkdir ~/.vim ~/.vim/bundle ~/.config
+$ git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 $ git clone [this repository]
 $ cd [this repository]
 $ cp vimrc /etc/vimrc
-$ mkdir ~/.vim
 $ cp -R bundle ~/.vim/
-$ mkdir ~/.config
 $ cp -R coc ~/.config/
 ```
 
 Vim Settings
 ```bash
-:NeoBundleUpdate
-:CocUpdate
+:NeoBundleInstall
 :CocInstall coc-tsserver
 :CocInstall coc-phpls
 :CocInstall cpc-html
