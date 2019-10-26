@@ -293,22 +293,22 @@ augroup RemoveTrailGr
 augroup END
 
 " {と}で, スペースを両端に含まない場合は見やすいように両端にスペースを挿入
-function InsertBracketsSpaces()
-  if ("%f") == '/etc/vimrc'
-    return
-  endif
-  if NoSpaceCurlyBracketCount() > 0
-    let pos = getpos(".")
-    execute ":%s/{\\([a-zA-Z0-9]\\)\\@=/{ /ge"
-    execute ":%s/\\([a-zA-Z0-9]\\)\\@<=}/ }/ge"
-    execute ":call setpos('.', pos)"
-  endif
-endfunction
-augroup InsertBracketsSpacesGr
-  autocmd FileType javascript :autocmd! InsertLeave * call InsertBracketsSpaces()
-  autocmd FileType typescript :autocmd! InsertLeave * call InsertBracketsSpaces()
-  autocmd FileType typescriptreact :autocmd! InsertLeave * call InsertBracketsSpaces()
-augroup END
+"function InsertBracketsSpaces()
+"  if ("%f") == '/etc/vimrc'
+"    return
+"  endif
+"  if NoSpaceCurlyBracketCount() > 0
+"    let pos = getpos(".")
+"    execute ":%s/{\\([a-zA-Z0-9]\\)\\@=/{ /ge"
+"    execute ":%s/\\([a-zA-Z0-9]\\)\\@<=}/ }/ge"
+"    execute ":call setpos('.', pos)"
+"  endif
+"endfunction
+"augroup InsertBracketsSpacesGr
+"  autocmd FileType javascript :autocmd! InsertLeave * call InsertBracketsSpaces()
+"  autocmd FileType typescript :autocmd! InsertLeave * call InsertBracketsSpaces()
+"  autocmd FileType typescriptreact :autocmd! InsertLeave * call InsertBracketsSpaces()
+"augroup END
 
 " 現在の(x, y)位置を返す
 let g:posX = 0
@@ -349,7 +349,7 @@ endfunction
 
 function SetGitBranch()
   " ちなみに Կ も悪くない
-  let branch = trim(system("git status 2> /dev/null | awk -F\"'\" '{print $2}' | xargs echo"))
+  let branch = trim(system("git rev-parse --abbrev-ref HEAD 2> /dev/null"))
   if len(branch) > 1
     let g:gitBranch = ' Git վ(' . branch . ')'
   endif
