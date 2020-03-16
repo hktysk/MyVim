@@ -43,8 +43,11 @@ colorscheme apprentice
 
 " 新しいファイルを開くときは常にタブで開く
 function OpenFilesToTabs()
-    :bfirst
-    :tab ba
+    "":bfirst
+    "":tab ba
+    if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
+      execute 'b # | tabnew | blast | bp'
+    endif
 endfunction
 autocmd BufNewFile,BufRead * :call OpenFilesToTabs()
 
